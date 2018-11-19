@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var letterButtons: [UIButton]!
     
+    
     var listOfWords = ["buccaneer", "swift", "glorious", "incandenscent", "bug", "program"]
     let incorrectMovesAllowed = 7
     
@@ -80,15 +81,33 @@ class ViewController: UIViewController {
         treeImageView.image = UIImage(named: "Tree \(currentGame.incorrectMovesRemaining)")
     }
     
+    func showVictoryAlert() {
+        let alert = UIAlertController(title: "Congrats! You won :)", message: "The new game will start in a moment", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
+    
+    func showFailAlert() {
+        let alert = UIAlertController(title: "Better luck next time!", message: "The new game will start in a moment", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
+        Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false, block: { _ in alert.dismiss(animated: true, completion: nil)} )
+    }
+    
+    
     func updateGameState() {
         if currentGame.incorrectMovesRemaining == 0 {
             totalLosses += 1
+            showFailAlert()
         } else if currentGame.word == currentGame.formattedWord {
             totalWins += 1
-        } else {
+            showVictoryAlert()
+            }
+        else {
             updateUI()
         }
         
-    }
 }
+
+}
+
 
