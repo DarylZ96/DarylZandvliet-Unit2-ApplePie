@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     var currentGame: Game!
     
     
-    
+    // Pass the guessed letter to the current game
     @IBAction func buttonPressed(_ sender: UIButton) {
         sender.isEnabled = false
         let letterString = sender.title(for: .normal)!
@@ -48,6 +48,9 @@ class ViewController: UIViewController {
         
         newRound()
     }
+    
+    // check and update the current game
+    // update the list of words
     
     func newRound() {
         if !listOfWords.isEmpty {
@@ -68,7 +71,8 @@ class ViewController: UIViewController {
         }
         
     }
-
+    
+    // update the interface after each round
     func updateUI() {
         var letters = [String]()
         for letter in currentGame.formattedWord.characters {
@@ -80,6 +84,8 @@ class ViewController: UIViewController {
         scoreLabel.text = "Wins: \(totalWins), Losses: \(totalLosses)"
         treeImageView.image = UIImage(named: "Tree \(currentGame.incorrectMovesRemaining)")
     }
+    
+    // present alerts to the user after guessing right or wrong
     
     func showVictoryAlert() {
         let alert = UIAlertController(title: "Congrats! You won :)", message: "The new game will start in a moment", preferredStyle: .alert)
